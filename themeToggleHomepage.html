@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice AI Agent Build</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --body-bg: linear-gradient(135deg, #101b3b 0%, #0a0f24 50%, #020617 100%);
+            --body-text: #f8fafc;
+            --body-overflow-x: visible;
+            --body-position: static;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --brand-text: #f8fafc;
+            --header-cta-text: #f8fafc;
+            --header-cta-bg: rgba(255, 255, 255, 0.1);
+            --header-cta-border: 1px solid rgba(255, 255, 255, 0.05);
+            --header-cta-hover-bg: rgba(255, 255, 255, 0.15);
+            --header-cta-hover-shadow: none;
+            --hero-padding: 120px 0 100px;
+            --subhead-weight: 300;
+            --cta-bg: rgba(255, 255, 255, 0.05);
+            --cta-text: #ffffff;
+            --cta-radius: 12px;
+            --cta-border: 1px solid rgba(255, 255, 255, 0.1);
+            --cta-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --cta-hover-bg: rgba(255, 255, 255, 0.1);
+            --cta-hover-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --cta-hover-border: 1px solid rgba(255, 255, 255, 0.2);
+            --cta-glow-size: 24px;
+            --cta-glow-bg: radial-gradient(circle, #e0e7ff 0%, #818cf8 100%);
+            --cta-glow-shadow: 0 0 15px rgba(129, 140, 248, 0.6);
+            --demo-bg: #f8fafc;
+            --demo-border: none;
+            --demo-backdrop-filter: none;
+            --demo-shadow: none;
+            --demo-text: #0f172a;
+            --demo-copy: #475569;
+            --feature-text: #0f172a;
+            --check-bg: #0f172a;
+            --check-color: #ffffff;
+            --check-weight: 400;
+            --video-bg: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            --video-text: #64748b;
+            --video-border: none;
+            --video-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+            --video-orb-size: 200px;
+            --video-orb-bg: radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+            --video-orb-blur: 20px;
+            --footer-border: 1px solid rgba(255, 255, 255, 0.05);
+            --footer-text: #94a3b8;
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-text: #f8fafc;
+            --toggle-border: 1px solid rgba(255, 255, 255, 0.08);
+            --toggle-hover-bg: rgba(255, 255, 255, 0.16);
+            --ambient-opacity: 0;
+            --ambient-display: none;
+        }
+
+        html[data-theme="light"] {
+            --body-bg: #f8fafc;
+            --body-text: #0f172a;
+            --body-overflow-x: hidden;
+            --body-position: relative;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --brand-text: #0f172a;
+            --header-cta-text: #0f172a;
+            --header-cta-bg: rgba(255, 255, 255, 0.5);
+            --header-cta-border: 1px solid rgba(0, 0, 0, 0.05);
+            --header-cta-hover-bg: rgba(255, 255, 255, 0.8);
+            --header-cta-hover-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --hero-padding: 100px 0 80px;
+            --subhead-weight: 400;
+            --cta-bg: #0f172a;
+            --cta-text: #ffffff;
+            --cta-radius: 50px;
+            --cta-border: none;
+            --cta-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+            --cta-hover-bg: #1e293b;
+            --cta-hover-shadow: 0 15px 35px rgba(15, 23, 42, 0.3);
+            --cta-hover-border: none;
+            --cta-glow-size: 12px;
+            --cta-glow-bg: #60a5fa;
+            --cta-glow-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+            --demo-bg: rgba(255, 255, 255, 0.7);
+            --demo-border: 1px solid rgba(255, 255, 255, 0.4);
+            --demo-backdrop-filter: blur(20px);
+            --demo-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            --demo-text: #0f172a;
+            --demo-copy: #475569;
+            --feature-text: #0f172a;
+            --check-bg: #e2e8f0;
+            --check-color: #0f172a;
+            --check-weight: 700;
+            --video-bg: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --video-text: #64748b;
+            --video-border: 1px solid rgba(255, 255, 255, 0.5);
+            --video-shadow: none;
+            --video-orb-size: 250px;
+            --video-orb-bg: radial-gradient(circle, rgba(167, 139, 250, 0.6) 0%, rgba(96, 165, 250, 0.6) 50%, rgba(255, 255, 255, 0) 80%);
+            --video-orb-blur: 30px;
+            --footer-border: none;
+            --footer-text: #94a3b8;
+            --toggle-bg: rgba(255, 255, 255, 0.6);
+            --toggle-text: #0f172a;
+            --toggle-border: 1px solid rgba(0, 0, 0, 0.06);
+            --toggle-hover-bg: rgba(255, 255, 255, 0.88);
+            --ambient-opacity: 1;
+            --ambient-display: block;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--body-text);
+            margin: 0;
+            padding: 0;
+            background: var(--body-bg);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: var(--body-overflow-x);
+            position: var(--body-position);
+        }
+
+        .ambient-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+            display: var(--ambient-display);
+            opacity: var(--ambient-opacity);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.6;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(59, 130, 246, 0.3);
+            top: -150px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(139, 92, 246, 0.2);
+            top: 20%;
+            right: -100px;
+            animation-delay: -4s;
+        }
+
+        .blob-3 {
+            width: 700px;
+            height: 700px;
+            background: rgba(147, 197, 253, 0.3);
+            bottom: -200px;
+            left: 15%;
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 50px) scale(1.05); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brand-text);
+        }
+
+        .brand-icon {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 100%);
+            border-radius: 50%;
+        }
+
+        .header-cta,
+        .theme-toggle {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .header-cta {
+            color: var(--header-cta-text);
+            background: var(--header-cta-bg);
+            border: var(--header-cta-border);
+        }
+
+        .header-cta:hover {
+            background: var(--header-cta-hover-bg);
+            box-shadow: var(--header-cta-hover-shadow);
+        }
+
+        .theme-toggle {
+            appearance: none;
+            cursor: pointer;
+            color: var(--toggle-text);
+            background: var(--toggle-bg);
+            border: var(--toggle-border);
+            font-family: inherit;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--toggle-hover-bg);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .theme-toggle .icon-moon {
+            display: none;
+        }
+
+        html[data-theme="light"] .theme-toggle .icon-sun {
+            display: none;
+        }
+
+        html[data-theme="light"] .theme-toggle .icon-moon {
+            display: block;
+        }
+
+        .hero {
+            padding: var(--hero-padding);
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .subhead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: var(--subhead-weight);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            padding: 16px 32px;
+            border-radius: var(--cta-radius);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            backdrop-filter: blur(20px);
+            border: var(--cta-border);
+            box-shadow: var(--cta-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--cta-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--cta-hover-shadow);
+            border: var(--cta-hover-border);
+        }
+
+        .cta-glow {
+            width: var(--cta-glow-size);
+            height: var(--cta-glow-size);
+            background: var(--cta-glow-bg);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: var(--cta-glow-shadow);
+            flex: 0 0 auto;
+        }
+
+        .demo-section {
+            background-color: var(--demo-bg);
+            backdrop-filter: var(--demo-backdrop-filter);
+            color: var(--demo-text);
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            border: var(--demo-border);
+            box-shadow: var(--demo-shadow);
+        }
+
+        .demo-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .demo-content p {
+            color: var(--demo-copy);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-list li {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            color: var(--feature-text);
+        }
+
+        .check-circle {
+            width: 24px;
+            height: 24px;
+            background: var(--check-bg);
+            color: var(--check-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: var(--check-weight);
+            flex: 0 0 auto;
+        }
+
+        .video-placeholder {
+            background: var(--video-bg);
+            height: 400px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--video-text);
+            font-weight: 500;
+            border: var(--video-border);
+            box-shadow: var(--video-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            width: var(--video-orb-size);
+            height: var(--video-orb-size);
+            background: var(--video-orb-bg);
+            filter: blur(var(--video-orb-blur));
+            border-radius: 50%;
+        }
+
+        .video-placeholder-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            padding: 40px 0;
+            border-top: var(--footer-border);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--footer-text);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header-actions {
+                flex-wrap: wrap;
+            }
+
+            .demo-section {
+                grid-template-columns: 1fr;
+                padding: 40px 24px;
+            }
+
+            .video-placeholder {
+                height: 300px;
+            }
+
+            .demo-content h2 {
+                font-size: 2.5rem;
+            }
+
+            html[data-theme="light"] h1 {
+                font-size: 2.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-background" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="brand-icon"></div>
+                [Your Name] Voice AI
+            </div>
+            <div class="header-actions">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" title="Switch theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2.5"></path>
+                        <path d="M12 19.5V22"></path>
+                        <path d="M2 12h2.5"></path>
+                        <path d="M19.5 12H22"></path>
+                        <path d="M4.9 4.9l1.8 1.8"></path>
+                        <path d="M17.3 17.3l1.8 1.8"></path>
+                        <path d="M17.3 6.7l1.8-1.8"></path>
+                        <path d="M4.9 19.1l1.8-1.8"></path>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+                    </svg>
+                </button>
+                <a href="tel:+61000000000" class="header-cta">Contact Sales</a>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Meet your AI call<br>center from the future.</h1>
+            <p class="subhead">Never miss another lead. We build human-sounding AI receptionists that answer FAQs, qualify leads, and book appointments instantly 24/7.</p>
+            
+            <a href="tel:+61000000000" class="cta-button">
+                <span class="cta-glow"></span>
+                Call [Your Number] to Test the AI
+            </a>
+        </section>
+
+        <section class="demo-section">
+            <div class="demo-content">
+                <h2>Try Our<br>Live Demo</h2>
+                <p>Receive a live call from our agent and discover how our AI caller transforms customer conversations seamlessly.</p>
+                
+                <ul class="features-list">
+                    <li><span class="check-circle">✓</span> Sounds natural with near-zero latency</li>
+                    <li><span class="check-circle">✓</span> Connects directly to your calendar & CRM</li>
+                    <li><span class="check-circle">✓</span> Deployed and answering in under 7 days</li>
+                </ul>
+            </div>
+            
+            <div class="video-placeholder">
+                <span class="video-placeholder-content">[ Embed 90-Second Demo Video Here ]</span>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 [YOUR COMPANY] PTY LTD. All rights reserved.</p>
+            <p>ABN: XX XXX XXX XXX | Brisbane, QLD</p>
+        </div>
+    </footer>
+
+    <script>
+        const root = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const storageKey = 'homepage-theme';
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+            themeToggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+        }
+
+        const savedTheme = localStorage.getItem(storageKey);
+        const initialTheme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'light';
+        applyTheme(initialTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            applyTheme(nextTheme);
+            localStorage.setItem(storageKey, nextTheme);
+        });
+    </script>
+
+</body>
+</html>
