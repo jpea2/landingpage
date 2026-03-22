@@ -3,629 +3,690 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice AI Agent's Done-For-You</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    
+    <title>AI Voice Agents & Custom Automation | Axios Ventures Pty Ltd</title>
+    <meta name="description" content="We build AI voice agents that answer the calls your team can't get to, and custom automation systems that connect your tools and eliminate manual work.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1B2A4A',
+                        'navy-light': '#243556',
+                        'navy-dark': '#111D35',
+                        'amber': '#E8792B',
+                        'amber-dark': '#D06820',
+                        'amber-light': '#F29A5A',
+                        'gray-warm': '#F7F5F3',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --body-bg: linear-gradient(135deg, #101b3b 0%, #0a0f24 50%, #020617 100%);
-            --body-text: #f8fafc;
-            --body-overflow-x: visible;
-            --body-position: static;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --brand-text: #f8fafc;
-            --header-cta-text: #0f172a;
-            --header-cta-bg: #ffffff;
-            --header-cta-border: 1px solid #0f172a;
-            --header-cta-hover-bg: #f1f5f9;
-            --header-cta-hover-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            --hero-padding: 100px 0 80px;
-            --subhead-weight: 400;
-            --cta-bg: #f8fafc;
-            --cta-text: #0f172a;
-            --cta-radius: 50px;
-            --cta-border: none;
-            --cta-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --cta-hover-bg: #e2e8f0;
-            --cta-hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            --cta-hover-border: none;
-            --cta-glow-size: 12px;
-            --cta-glow-bg: #60a5fa;
-            --cta-glow-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
-            --demo-bg: #f8fafc;
-            --demo-border: none;
-            --demo-backdrop-filter: none;
-            --demo-shadow: none;
-            --demo-text: #0f172a;
-            --demo-copy: #475569;
-            --feature-text: #0f172a;
-            --check-bg: #e2e8f0;
-            --check-color: #0f172a;
-            --check-weight: 700;
-            --video-bg: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            --video-text: #64748b;
-            --video-border: 1px solid rgba(255, 255, 255, 0.5);
-            --video-shadow: none;
-            --video-orb-size: 250px;
-            --video-orb-bg: radial-gradient(circle, rgba(167, 139, 250, 0.6) 0%, rgba(96, 165, 250, 0.6) 50%, rgba(255, 255, 255, 0) 80%);
-            --video-orb-blur: 30px;
-            --footer-border: 1px solid rgba(255, 255, 255, 0.05);
-            --footer-text: #94a3b8;
-            --toggle-bg: #ffffff;
-            --toggle-text: #0f172a;
-            --toggle-border: 1px solid #0f172a;
-            --toggle-hover-bg: #f1f5f9;
-            --ambient-opacity: 0;
-            --ambient-display: none;
-        }
-
-        html[data-theme="light"] {
-            --body-bg: #f8fafc;
-            --body-text: #0f172a;
-            --body-overflow-x: hidden;
-            --body-position: relative;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --brand-text: #0f172a;
-            --header-cta-text: #0f172a;
-            --header-cta-bg: rgba(255, 255, 255, 0.5);
-            --header-cta-border: 1px solid #0f172a;
-            --header-cta-hover-bg: rgba(255, 255, 255, 0.8);
-            --header-cta-hover-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            --hero-padding: 100px 0 80px;
-            --subhead-weight: 400;
-            --cta-bg: #0f172a;
-            --cta-text: #ffffff;
-            --cta-radius: 50px;
-            --cta-border: none;
-            --cta-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
-            --cta-hover-bg: #1e293b;
-            --cta-hover-shadow: 0 15px 35px rgba(15, 23, 42, 0.3);
-            --cta-hover-border: none;
-            --cta-glow-size: 12px;
-            --cta-glow-bg: #60a5fa;
-            --cta-glow-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
-            --demo-bg: rgba(255, 255, 255, 0.7);
-            --demo-border: 1px solid rgba(255, 255, 255, 0.4);
-            --demo-backdrop-filter: blur(20px);
-            --demo-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
-            --demo-text: #0f172a;
-            --demo-copy: #475569;
-            --feature-text: #0f172a;
-            --check-bg: #e2e8f0;
-            --check-color: #0f172a;
-            --check-weight: 700;
-            --video-bg: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            --video-text: #64748b;
-            --video-border: 1px solid rgba(255, 255, 255, 0.5);
-            --video-shadow: none;
-            --video-orb-size: 250px;
-            --video-orb-bg: radial-gradient(circle, rgba(167, 139, 250, 0.6) 0%, rgba(96, 165, 250, 0.6) 50%, rgba(255, 255, 255, 0) 80%);
-            --video-orb-blur: 30px;
-            --footer-border: none;
-            --footer-text: #94a3b8;
-            --toggle-bg: rgba(255, 255, 255, 0.6);
-            --toggle-text: #0f172a;
-            --toggle-border: 1px solid #0f172a;
-            --toggle-hover-bg: rgba(255, 255, 255, 0.88);
-            --ambient-opacity: 1;
-            --ambient-display: block;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--body-text);
-            margin: 0;
-            padding: 0;
-            background: var(--body-bg);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: var(--body-overflow-x);
-            position: var(--body-position);
-        }
-
-        .ambient-background {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            z-index: -1;
-            pointer-events: none;
-            display: var(--ambient-display);
-            opacity: var(--ambient-opacity);
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.6;
-            animation: float 12s infinite alternate ease-in-out;
-        }
-
-        .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: rgba(59, 130, 246, 0.3);
-            top: -150px;
-            left: -100px;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(139, 92, 246, 0.2);
-            top: 20%;
-            right: -100px;
-            animation-delay: -4s;
-        }
-
-        .blob-3 {
-            width: 700px;
-            height: 700px;
-            background: rgba(147, 197, 253, 0.3);
-            bottom: -200px;
-            left: 15%;
-            animation-delay: -8s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, 50px) scale(1.05); }
-            100% { transform: translate(-20px, 30px) scale(0.95); }
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand {
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--brand-text);
-        }
-
-        .brand-icon {
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 100%);
-            border-radius: 50%;
-        }
-
-        .header-cta,
-        .theme-toggle {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .header-cta {
-            color: var(--header-cta-text);
-            background: var(--header-cta-bg);
-            border: var(--header-cta-border);
-        }
-
-        .header-cta:hover {
-            background: var(--header-cta-hover-bg);
-            box-shadow: var(--header-cta-hover-shadow);
-        }
-
-        .theme-toggle {
-            appearance: none;
-            cursor: pointer;
-            color: var(--toggle-text);
-            background: var(--toggle-bg);
-            border: var(--toggle-border);
-            font-family: inherit;
-            width: 44px;
-            height: 44px;
-            padding: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            background: var(--toggle-hover-bg);
-        }
-
-        .theme-toggle svg {
-            width: 18px;
-            height: 18px;
-            stroke: currentColor;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 1.8;
-        }
-
-        .theme-toggle .icon-moon {
-            display: none;
-        }
-
-        html[data-theme="light"] .theme-toggle .icon-sun {
-            display: none;
-        }
-
-        html[data-theme="light"] .theme-toggle .icon-moon {
-            display: block;
-        }
-
-        .hero {
-            padding: var(--hero-padding);
-            text-align: center;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-            color: var(--text-main);
-        }
-
-        .subhead {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            margin-bottom: 48px;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: var(--subhead-weight);
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--cta-bg);
-            color: var(--cta-text);
-            padding: 16px 32px;
-            border-radius: var(--cta-radius);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            backdrop-filter: blur(20px);
-            border: var(--cta-border);
-            box-shadow: var(--cta-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: var(--cta-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--cta-hover-shadow);
-            border: var(--cta-hover-border);
-        }
-
-        .cta-glow {
-            width: var(--cta-glow-size);
-            height: var(--cta-glow-size);
-            background: var(--cta-glow-bg);
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: var(--cta-glow-shadow);
-            flex: 0 0 auto;
-        }
-
-        .cta-phone-icon {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 1.8;
-            flex: 0 0 auto;
-        }
-
-        .cta-hint {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            max-width: 520px;
-            margin: 20px auto 0;
-            line-height: 1.6;
-        }
-
-        .booking-section {
-            text-align: center;
-            margin-bottom: 80px;
-            padding-top: 20px;
-        }
-
-        .booking-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
-            color: var(--text-main);
-            margin: 0 0 12px 0;
-            letter-spacing: -0.02em;
-        }
-
-        .booking-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin: 0 auto 40px;
-            max-width: 500px;
-        }
-
-        .cal-embed-wrapper {
-            width: 100%;
-            min-height: 500px;
-            overflow: auto;
-            border-radius: 16px;
-            background: var(--demo-bg);
-            border: var(--demo-border);
-            box-shadow: var(--demo-shadow);
-        }
-
-        .demo-section {
-            background-color: var(--demo-bg);
-            backdrop-filter: var(--demo-backdrop-filter);
-            color: var(--demo-text);
-            padding: 60px;
-            border-radius: 24px;
-            margin-bottom: 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            border: var(--demo-border);
-            box-shadow: var(--demo-shadow);
-        }
-
-        .demo-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 400;
-            margin: 0 0 16px 0;
-            letter-spacing: -0.02em;
-        }
-
-        .demo-content p {
-            color: var(--demo-copy);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-
-        .features-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .features-list li {
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: var(--feature-text);
-        }
-
-        .check-circle {
-            width: 24px;
-            height: 24px;
-            background: var(--check-bg);
-            color: var(--check-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: var(--check-weight);
-            flex: 0 0 auto;
-        }
-
-        .video-placeholder {
-            background: var(--video-bg);
-            height: 400px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--video-text);
-            font-weight: 500;
-            border: var(--video-border);
-            box-shadow: var(--video-shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .video-placeholder::before {
-            content: '';
-            position: absolute;
-            width: var(--video-orb-size);
-            height: var(--video-orb-size);
-            background: var(--video-orb-bg);
-            filter: blur(var(--video-orb-blur));
-            border-radius: 50%;
-        }
-
-        .video-placeholder-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        footer {
-            padding: 40px 0;
-            border-top: var(--footer-border);
-            text-align: center;
-            font-size: 0.875rem;
-            color: var(--footer-text);
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (max-width: 768px) {
-            .header-actions {
-                flex-wrap: wrap;
-            }
-
-            .demo-section {
-                grid-template-columns: 1fr;
-                padding: 40px 24px;
-            }
-
-            .video-placeholder {
-                height: 300px;
-            }
-
-            .demo-content h2 {
-                font-size: 2.5rem;
-            }
-
-            html[data-theme="light"] h1 {
-                font-size: 2.75rem;
-            }
-        }
+        html { scroll-behavior: smooth; }
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body class="bg-white text-gray-800 font-sans antialiased">
 
-    <div class="ambient-background" aria-hidden="true">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-
-    <div class="container">
-        <header>
-            <div class="brand">
-                <div class="brand-icon"></div>
-                Voice AI Agent's
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-extrabold text-xl tracking-tight text-navy">
+                AXIOS VENTURES <span class="text-amber">PTY LTD</span>
             </div>
-            <div class="header-actions">
-                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" title="Switch theme">
-                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2.5"></path>
-                        <path d="M12 19.5V22"></path>
-                        <path d="M2 12h2.5"></path>
-                        <path d="M19.5 12H22"></path>
-                        <path d="M4.9 4.9l1.8 1.8"></path>
-                        <path d="M17.3 17.3l1.8 1.8"></path>
-                        <path d="M17.3 6.7l1.8-1.8"></path>
-                        <path d="M4.9 19.1l1.8-1.8"></path>
-                    </svg>
-                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
-                    </svg>
-                </button>
-                <a href="#book-a-call" class="header-cta">Book a Call</a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
+                <a href="#services" class="hover:text-navy transition">Services</a>
+                <a href="#approach" class="hover:text-navy transition">Our Approach</a>
+                <a href="#how-it-works" class="hover:text-navy transition">How It Works</a>
+                <a href="#faq" class="hover:text-navy transition">FAQ</a>
             </div>
-        </header>
-
-        <section class="hero">
-            <h1>Meet your AI call<br>center from the future.</h1>
-            <p class="subhead">Never miss another lead. We build human-sounding AI receptionists that answer FAQs, qualify leads, and book appointments instantly 24/7.</p>
-            
-            <a href="tel:+61000000000" class="cta-button">
-                <svg class="cta-phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                Talk to Sarah — Our AI Receptionist Demo
+            <a href="#book" class="bg-navy text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-navy-light transition">
+                Book a Demo
             </a>
-            <p class="cta-hint"><strong><u>Heads up</u>:</strong> Sarah will role-play as a dentist receptionist. Call in as if you're a patient — ask about appointments, pricing, or anything you'd normally ask a front desk. See how she handles it.</p>
-        </section>
+        </div>
+    </nav>
 
-        <section class="demo-section">
-            <div class="demo-content">
-                <h2>Try Our<br>Live Demo</h2>
-                <p>Receive a live call from our agent and discover how our AI caller transforms customer conversations seamlessly.</p>
-                
-                <ul class="features-list">
-                    <li><span class="check-circle">✓</span> Sounds natural with near-zero latency</li>
-                    <li><span class="check-circle">✓</span> Connects directly to your calendar & CRM</li>
-                    <li><span class="check-circle">✓</span> Deployed and answering in under 7 days</li>
-                </ul>
+    <!-- Hero Section -->
+    <section class="bg-navy text-white">
+        <div class="max-w-6xl mx-auto px-6 py-24 md:py-32">
+            <div class="max-w-3xl fade-in">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6">
+                    Never Miss Another<br>
+                    <span class="text-amber">Lead Again.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-10 max-w-2xl">
+                    Stop losing leads and wasting hours. We deploy 24/7 AI voice agents to capture every missed call, and build custom automations that connect your tools to eliminate busywork.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#book" class="bg-amber text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-amber-dark transition text-center">
+                        Book a Free Demo
+                    </a>
+                    <a href="#services" class="border border-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/5 transition text-center">
+                        See How It Works
+                    </a>
+                </div>
             </div>
-            
-            <div class="video-placeholder">
-                <span class="video-placeholder-content">[ Embed 90-Second Demo Video Here ]</span>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="bg-gray-warm py-20 md:py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-20">
+                <div class="grid lg:grid-cols-3 gap-12 items-center">
+                    <div class="lg:col-span-2">
+                        <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">Sound Familiar?</p>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-navy leading-tight mb-6">
+                            What happens when someone calls your business tonight?
+                        </h2>
+                        <p class="text-xl text-gray-700 font-bold mb-6 leading-tight">
+                            If they're lucky, they get a generic voicemail. If they're not, they wait 30 seconds in silence first.
+                        </p>
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-lg">
+                            <p>
+                                We tested 5 businesses after hours. The results were consistent: **every single one** defaulted to a generic "leave a message" voicemail. No brand, no urgency, and no next steps for the lead.
+                            </p>
+                            <p>
+                                But 3 of those 5 were even worse — they let the phone ring out for nearly half a minute before finally giving up. That's 30 seconds of your lead sitting in silence, forming an opinion about your business before you've even said a word.
+                            </p>
+                            <p class="text-navy font-bold">
+                                Whether it's a 30-second wait or an instant voicemail, the result is the same: they hang up and call your competitor. We fix that.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
+                        <div class="text-6xl font-extrabold text-amber mb-2">3 in 5</div>
+                        <p class="text-sm text-navy font-bold uppercase tracking-wider mb-4">Make the customer wait</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                            60% of businesses we tested let the phone ring for 20-30s before hitting voicemail — the ultimate first-impression killer.
+                        </p>
+                        <div class="pt-6 border-t border-gray-100">
+                            <div class="text-3xl font-extrabold text-navy mb-1">100%</div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">Had no system to capture leads</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-        <section class="booking-section" id="book-a-call">
-            <h2 class="booking-title">Book a Call With Us</h2>
-            <p class="booking-subtitle">See how a custom AI receptionist could work for your business. Pick a time that suits you.</p>
-            <!-- Cal inline embed code begins -->
-            <div class="cal-embed-wrapper" id="my-cal-inline-15min"></div>
-            <script type="text/javascript">
-            (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-            Cal("init", "15min", {origin:"https://app.cal.com"});
+        </div>
+    </section>
 
-            Cal.ns["15min"]("inline", {
-                elementOrSelector:"#my-cal-inline-15min",
-                config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-                calLink: "jeremy-voice-ai/15min",
-            });
+    <!-- Service 1: Voice Agents -->
+    <section id="services" class="py-20 md:py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">Service One</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-navy leading-tight mb-6">
+                        Your AI Agent That Answers When You Can't
+                    </h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        When a call comes in and your team doesn't pick up — whether they're busy, on a job, or it's outside business hours — the call rolls to the AI agent after a set number of rings. It picks up, qualifies the caller, and books the appointment. No leads lost.
+                    </p>
 
-            Cal.ns["15min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
-            </script>
-            <!-- Cal inline embed code ends -->
-        </section>
-    </div>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start space-x-3">
+                            <div class="mt-1 w-5 h-5 bg-amber rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700">Answers calls naturally with a voice trained for your business</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="mt-1 w-5 h-5 bg-amber rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700">Asks qualifying questions specific to your services</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="mt-1 w-5 h-5 bg-amber rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700">Books appointments directly into your calendar</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="mt-1 w-5 h-5 bg-amber rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700">Sends instant notifications with caller details to your team</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="mt-1 w-5 h-5 bg-amber rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700">Works 24/7 — evenings, weekends, and holidays</span>
+                        </div>
+                    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 [YOUR COMPANY] PTY LTD. All rights reserved.</p>
-            <p>ABN: XX XXX XXX XXX | Brisbane, QLD</p>
+                    <div class="bg-navy/5 border border-navy/10 rounded-xl p-5 mb-8">
+                        <p class="text-navy font-semibold text-sm">
+                            This is not a chatbot. This is not outbound cold calling. This is a voice agent that handles the real phone calls your team is already missing.
+                        </p>
+                    </div>
+
+                    <a href="#book" class="inline-flex items-center text-amber font-semibold hover:text-amber-dark transition">
+                        Hear it in action — book a demo
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Visual: Phone call simulation -->
+                <div class="bg-navy rounded-2xl p-8 md:p-10 text-white">
+                    <!-- Phone call header -->
+                    <div class="flex items-center justify-between mb-6 pb-5 border-b border-white/10">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm">Live Call</p>
+                                <p class="text-xs text-gray-400">Inbound — 04:32</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-xs font-medium text-green-400">Active</span>
+                        </div>
+                    </div>
+
+                    <!-- Call status timeline -->
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center space-x-3 opacity-50">
+                            <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-sm">Incoming call — rang 4 times</span>
+                        </div>
+                        <div class="flex items-center space-x-3 opacity-50">
+                            <svg class="w-4 h-4 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <span class="text-sm">Team unavailable — forwarding to AI agent</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-sm font-medium">AI agent picked up</span>
+                        </div>
+                    </div>
+
+                    <!-- Call transcript -->
+                    <div class="bg-white/5 rounded-xl p-5 mb-4 space-y-4">
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-3">Call Transcript</p>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-amber/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-amber" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-amber-light font-medium mb-1">AI Agent</p>
+                                <p class="text-sm text-gray-200">"Hi, thanks for calling. I'd love to help you out. Can I start with your name and what you're looking for?"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium mb-1">Caller</p>
+                                <p class="text-sm text-gray-200">"Yeah, it's Sarah. May I request a call back tomorrow?"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-amber/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-3 h-3 text-amber" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-amber-light font-medium mb-1">AI Agent</p>
+                                <p class="text-sm text-gray-200">"Perfect, Sarah. I've got a slot available tomorrow at 10am. Want me to lock that in for you?"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outcome -->
+                    <div class="flex items-center space-x-3 bg-green-500/10 rounded-lg px-4 py-3">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span class="text-sm font-medium text-green-400">Appointment booked — notification sent to team</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational Leakage Section -->
+    <section class="bg-gray-warm py-20 md:py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5l-3 3m0-3l3 3"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Missed Calls, Lost Revenue</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        When your team is busy, on a job, or it's after hours, calls go unanswered. Every missed call is a potential customer choosing your competitor instead.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M8 18H4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Disconnected Tools</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Your CRM doesn't talk to your calendar. Your forms don't update your systems. Your team copies and pastes between apps all day long.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">No Single Source of Truth</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Data lives in 5 different places. Nobody has the full picture. Decisions get made on gut feel instead of real numbers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 2: Automation -->
+    <section class="py-20 md:py-24 px-6 bg-gray-warm">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Visual placeholder -->
+                <div class="bg-white rounded-2xl border border-gray-200 p-8 order-2 lg:order-1">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-blue-600">CRM</span>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">New lead received</span>
+                            </div>
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-purple-600">CAL</span>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">Slot added to calendar</span>
+                            </div>
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-green-600">PM</span>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">Task created in project board</span>
+                            </div>
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-amber/20 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-amber">DB</span>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">Dashboard updated in real time</span>
+                            </div>
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <div class="flex justify-center">
+                            <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-red-600">NT</span>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">Team notified via Slack</span>
+                            </div>
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-400 mt-6 font-medium">One trigger. Five actions. Zero manual work.</p>
+                </div>
+
+                <div class="order-1 lg:order-2">
+                    <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">Service Two</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-navy leading-tight mb-6">
+                        Your Tools, Connected.<br>Your Workflows, Automated.
+                    </h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        We don't sell you a tool. We connect the ones you already have and build the workflows your team actually needs.
+                    </p>
+
+                    <div class="space-y-5 mb-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy">Connect your applications</h4>
+                                <p class="text-gray-600 text-sm">CRM, calendar, project management, forms, spreadsheets, databases — all talking to each other.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy">Build custom dashboards</h4>
+                                <p class="text-gray-600 text-sm">Real-time visibility into your operations so leadership makes decisions on data, not gut feel.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy">Automate repetitive work</h4>
+                                <p class="text-gray-600 text-sm">Data entry, status updates, task routing, notifications — handled automatically so your team focuses on real work.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-navy">Create a centralised operating system</h4>
+                                <p class="text-gray-600 text-sm">One place for your team to work from — instead of jumping between 10 tabs and 5 logins.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#book" class="inline-flex items-center text-amber font-semibold hover:text-amber-dark transition">
+                        Tell us what you're working with
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Work With Us -->
+    <section id="approach" class="py-20 md:py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="max-w-2xl mb-14">
+                <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">Our Approach</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-navy leading-tight">
+                    We start with your process, not our tools.
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-8 rounded-2xl border border-gray-100 hover:border-amber/30 transition">
+                    <div class="w-10 h-10 bg-amber/10 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Strategy First</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Every system we build begins with understanding how your business actually runs. We map your workflows and identify the highest-impact opportunities before writing a single line of automation.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl border border-gray-100 hover:border-amber/30 transition">
+                    <div class="w-10 h-10 bg-amber/10 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">No Long-Term Contracts</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Setup is a one-time fee. Support is month-to-month. We earn your business every month — not because you're locked in, but because the system keeps delivering.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl border border-gray-100 hover:border-amber/30 transition">
+                    <div class="w-10 h-10 bg-amber/10 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">End-to-End Delivery</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We don't just build it and disappear. We design, deploy, train your team, document everything, and provide ongoing support. You're never left figuring it out alone.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl border border-gray-100 hover:border-amber/30 transition">
+                    <div class="w-10 h-10 bg-amber/10 rounded-lg flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Built on Proven Platforms</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We build on industry-standard tools — not proprietary systems you can't leave. Your automation runs on platforms you can access and understand.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Built With bar -->
+            <div class="mt-16 pt-12 border-t border-gray-100">
+                <p class="text-center text-sm text-gray-400 font-medium uppercase tracking-widest mb-8">Built with</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-40">
+                    <span class="text-lg font-bold tracking-tight text-gray-600">Make</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">n8n</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">Vapi</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">LiveKit</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">Airtable</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">Cal.com</span>
+                    <span class="text-lg font-bold tracking-tight text-gray-600">Supabase</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 md:py-24 px-6 bg-navy text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="max-w-2xl mb-14">
+                <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">How It Works</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">
+                    Three steps. That's it.
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="relative">
+                    <div class="text-6xl font-extrabold text-white/5 absolute -top-4 -left-2">01</div>
+                    <div class="relative pt-8">
+                        <div class="w-12 h-12 bg-amber rounded-xl flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Discovery</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            We learn your business, map your workflows, and identify where calls are being missed and where manual work is costing you time.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="text-6xl font-extrabold text-white/5 absolute -top-4 -left-2">02</div>
+                    <div class="relative pt-8">
+                        <div class="w-12 h-12 bg-amber rounded-xl flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Build & Launch</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            We design and deploy your voice agent and/or automation system. Most systems go live within 1-2 weeks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="text-6xl font-extrabold text-white/5 absolute -top-4 -left-2">03</div>
+                    <div class="relative pt-8">
+                        <div class="w-12 h-12 bg-amber rounded-xl flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Optimise & Support</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Ongoing tuning, maintenance, and expansion as your business grows. Your system gets better over time — not worse.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-14 text-center">
+                <a href="#book" class="inline-flex items-center bg-amber text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-amber-dark transition">
+                    Book a Free Demo
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 md:py-24 px-6 bg-gray-warm">
+        <div class="max-w-3xl mx-auto">
+            <div class="mb-14">
+                <p class="text-amber font-semibold text-sm uppercase tracking-widest mb-3">FAQ</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-navy leading-tight">
+                    Common questions, straight answers.
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        What if the AI voice agent says something wrong?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        It's trained specifically on your business, services, and qualifying criteria. We test extensively before launch and continuously refine it based on real calls. You'll hear it before it ever talks to a customer.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        Will it sound robotic?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Modern voice AI is natural and conversational. We'll let you hear it before it goes live — most people can't tell the difference.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        Does the agent make outbound calls?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        No. Our voice agents handle inbound calls only — specifically the ones your team can't get to. It only picks up when nobody else does.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        What tools can you integrate?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Most modern business tools — CRMs, calendars, project management platforms, databases, forms, spreadsheets, and more. If your team uses it, we can likely connect it.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        How long does setup take?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        Voice agents: 1-2 weeks. Automation systems: 1-4 weeks depending on complexity. We'll give you a clear timeline after the discovery call.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-xl border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer p-6 font-semibold text-navy">
+                        Do I need a long-term contract?
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                        No. Setup is a one-time fee. Support is month-to-month. No lock-ins, no exit fees.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="book" class="py-20 md:py-24 px-6 bg-navy text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
+                Let's Talk About Your Business
+            </h2>
+            <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
+                Whether it's missed calls or disconnected tools, we'll show you exactly how we'd solve it — in 15 minutes.
+            </p>
+
+            <!-- Cal.com embed -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-15min"></div>
+                <script type="text/javascript">
+                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+                Cal("init", "15min", {origin:"https://app.cal.com"});
+
+                Cal.ns["15min"]("inline", {
+                    elementOrSelector:"#my-cal-inline-15min",
+                    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+                    calLink: "jeremy-voice-ai/15min",
+                });
+
+                Cal.ns["15min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-dark text-white py-16 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <div class="font-extrabold text-xl tracking-tight mb-4">
+                        AXIOS VENTURES <span class="text-amber">PTY LTD</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm mb-6 leading-relaxed">
+                        AI voice agents and custom automation systems — built for businesses that want their tools working as hard as they do.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4 text-sm uppercase tracking-widest text-gray-500">Services</h5>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#services" class="hover:text-white transition">AI Voice Agents</a></li>
+                        <li><a href="#services" class="hover:text-white transition">Custom Automation</a></li>
+                        <li><a href="#services" class="hover:text-white transition">System Integrations</a></li>
+                        <li><a href="#services" class="hover:text-white transition">Operational Dashboards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4 text-sm uppercase tracking-widest text-gray-500">Company</h5>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#approach" class="hover:text-white transition">Our Approach</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="#book" class="hover:text-white transition">Book a Demo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2026 AXIOS VENTURES PTY LTD. All rights reserved.
+                </p>
+                <a href="mailto:jeremy@tryvocalaiagents.com" class="text-sm text-gray-400 hover:text-white transition flex items-center">
+                    jeremy@tryvocalaiagents.com
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
         </div>
     </footer>
-
-    <script>
-        const root = document.documentElement;
-        const themeToggle = document.getElementById('themeToggle');
-        const storageKey = 'homepage-theme';
-
-        function applyTheme(theme) {
-            root.setAttribute('data-theme', theme);
-            themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-            themeToggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
-        }
-
-        const savedTheme = localStorage.getItem(storageKey);
-        const initialTheme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'light';
-        applyTheme(initialTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const nextTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            applyTheme(nextTheme);
-            localStorage.setItem(storageKey, nextTheme);
-        });
-    </script>
 
 </body>
 </html>
